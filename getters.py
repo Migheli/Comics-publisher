@@ -19,7 +19,7 @@ def get_author_comment(comics_page_data):
 
 
 def get_wall_upload_url(version, token, group_id):
-    url = f'https://api.vk.com/method/photos.getWallUploadServer?PARAMS'
+    url = f'https://api.vk.com/method/photos.getWallUploadServer'
     payload = {
         'v': version,
         'access_token': token,

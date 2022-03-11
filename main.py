@@ -12,7 +12,7 @@ def save_comics_to_file(comics_page_data):
 
 
 def post_on_wall(version, token, group_id, saved_photo_dataset, comment):
-    url = f'https://api.vk.com/method/wall.post?PARAMS'
+    url = f'https://api.vk.com/method/wall.post'
     payload = {
         'v': version,
         'access_token': token,
