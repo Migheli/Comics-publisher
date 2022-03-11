@@ -24,8 +24,7 @@ def post_on_wall(version, token, group_id, saved_photo_dataset, comment):
 
     response = requests.post(url=url, params=payload)
     response.raise_for_status()
-    reponse_data = response.json()['response']
-    return reponse_data
+    return response.json()['response']
 
 
 def main():
