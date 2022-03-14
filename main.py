@@ -1,30 +1,9 @@
-import requests
 import os
 from environs import Env
 from random import randint
-from img_downloader import download_img
-from getters import get_comics_page_data, get_comics_filename, get_author_comment, get_saved_to_album_photo_dataset
-
-
-def save_comics_to_file(comics_page_data):
-    comics_img_url = comics_page_data['img']
-    download_img(comics_img_url, get_comics_filename(comics_page_data))
-
-
-def post_on_wall(version, token, group_id, saved_photo_dataset, comment):
-    url = f'https://api.vk.com/method/wall.post'
-    payload = {
-        'v': version,
-        'access_token': token,
-        'owner_id': f'-{group_id}',
-        'from_group': 1,
-        'message': comment,
-        'attachments': f'photo{saved_photo_dataset["owner_id"]}_{saved_photo_dataset["id"]}'
-    }
-
-    response = requests.post(url=url, params=payload)
-    response.raise_for_status()
-    return response.json()['response']
+from vk_api_handlers import get_saved_to_album_photo_dataset, post_on_wall
+from xkcd_api_handlers import save_comics_to_file, get_comics_page_data, get_comics_filename, \
+    get_author_comment, get_last_comics_id
 
 
 def main():
@@ -34,7 +13,7 @@ def main():
     version = env('VERSION')
     token = env('VK_ACCESS_TOKEN')
     group_id = env('GROUP_ID')
-    first_comics_id, last_comics_id = 1, 2591
+    first_comics_id, last_comics_id = 1, get_last_comics_id()
     comics_id = randint(first_comics_id, last_comics_id)
     comics_page_data = get_comics_page_data(comics_id)
     save_comics_to_file(comics_page_data)
