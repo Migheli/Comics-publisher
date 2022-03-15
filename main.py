@@ -23,8 +23,8 @@ def main():
     try:
         saved_photo_dataset = get_saved_to_album_photo_dataset(version, token, group_id, file_name)
         post_on_wall(version, 'token', group_id, saved_photo_dataset, auhtor_comment)
-    except VkApiError as error:
-        exit(f'{error} {traceback.format_exc()}')
+    except VkApiError:
+        exit(f'{traceback.format_exc()}')
     finally:
         os.remove(file_name)
 
