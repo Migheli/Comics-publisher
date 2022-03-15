@@ -1,11 +1,6 @@
 import requests
-from urllib.parse import urlparse
-from img_downloader import download_img
-
-
-def save_comics_to_file(comics_page_data):
-    comics_img_url = comics_page_data['img']
-    download_img(comics_img_url, get_comics_filename(comics_page_data))
+import os
+from urllib.parse import urlsplit, unquote
 
 
 def get_comics_page_data(comics_id):
@@ -15,9 +10,10 @@ def get_comics_page_data(comics_id):
     return response.json()
 
 
-def get_comics_filename(comics_page_data):
-    comics_img_url = comics_page_data['img']
-    return urlparse(comics_img_url).path[8:]
+def get_comics_filename(comics_img_url):
+    url_path_unquoted = unquote(urlsplit(comics_img_url).path)
+    filename = os.path.split(url_path_unquoted)[1]
+    return filename
 
 
 def get_author_comment(comics_page_data):
