@@ -70,9 +70,8 @@ class VkApiError(Exception):
 
 def is_valid_vk_response(response_data):
     if 'error' in response_data:
-        error = response_data['error']
-        error_code, error_description = error['error_code'], error['error_msg']
-        raise VkApiError(f'VK API ERROR. Code: {error_code} Description: {error_description}')
-    else:
-        pass
+        raise VkApiError(f"""
+    VK API ERROR. Code: {response_data["error"]["error_code"]} Description:
+    {response_data["error"]["error_msg"]}
+    """)
 

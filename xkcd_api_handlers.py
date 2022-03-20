@@ -16,10 +16,6 @@ def get_comics_filename(comics_img_url):
     return filename
 
 
-def get_author_comment(comics_page_data):
-    return comics_page_data['alt']
-
-
 def get_last_comics_id():
     response = requests.get('https://xkcd.com/info.0.json')
     response.raise_for_status()
